@@ -1,0 +1,338 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{book}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage[bf,singlelinecheck=off]{caption}
+
+\usepackage{framed,color}
+\definecolor{shadecolor}{RGB}{248,248,248}
+
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\topfraction}{0.8}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\floatpagefraction}{0.75}
+
+\renewenvironment{quote}{\begin{VF}}{\end{VF}}
+\let\oldhref\href
+\renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+
+\makeatletter
+\newenvironment{kframe}{%
+\medskip{}
+\setlength{\fboxsep}{.8em}
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\renewenvironment{Shaded}{\begin{kframe}}{\end{kframe}}
+
+\usepackage{makeidx}
+\makeindex
+
+\urlstyle{tt}
+
+\usepackage{amsthm}
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=8pt plus 2pt minus 4pt
+  \thm@postskip=\thm@preskip
+}
+\makeatother
+
+\frontmatter
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage[]{natbib}
+\bibliographystyle{apalike}
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Making free books with RStudio's RMarkdown \& Bookdown},
+  pdfauthor={Julie Lowndes},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Making free books with RStudio's RMarkdown \& Bookdown}
+\author{Julie Lowndes}
+\date{2023-02-06}
+
+\begin{document}
+\maketitle
+
+% you may need to leave a few empty pages before the dedication page
+
+%\cleardoublepage\newpage\thispagestyle{empty}\null
+%\cleardoublepage\newpage\thispagestyle{empty}\null
+%\cleardoublepage\newpage
+\thispagestyle{empty}
+
+\begin{center}
+To my son,
+
+without whom I should have finished this book two years earlier
+%\includegraphics{images/dedication.pdf}
+\end{center}
+
+\setlength{\abovedisplayskip}{-5pt}
+\setlength{\abovedisplayshortskip}{-5pt}
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\hypertarget{welcome}{%
+\chapter{Welcome}\label{welcome}}
+
+hi
+
+It's possible to create beautiful books for free using \href{http://rmarkdown.rstudio.com/}{RStudio's R Markdown} and Yihui Xie's \href{https://bookdown.org/yihui/bookdown/}{bookdown} and hosting them on \href{http://github.com}{Github}. This is pretty new and incredibly cool. It is a really powerful way to communicate science using the same reproducible workflow you use for your analyses and collaborations.
+
+This tutorial borrows heavily from a lot of great tutorials and resources you should check out too -- there are links throughout. It also parallels a previous tutorial \href{https://jules32.github.io/rmarkdown-website-tutorial/}{Making free websites with RStudio's R Markdown}.
+
+The best way to learn is to follow along with your own laptop, but all are welcome. We'll spend half the time with the tutorial and half the time for you to work on your own website and get help. If you bring your laptop please do this beforehand:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  install \href{https://www.rstudio.com/products/rstudio/download/}{RStudio}
+\item
+  create a \href{(http://github.com)}{GitHub} account (\href{http://happygitwithr.com/github-acct.html}{advice})
+\item
+  set up your computer to talk to GitHub
+
+  \begin{itemize}
+  \tightlist
+  \item
+    have RStudio linked directly (highly recommended) (\href{http://happygitwithr.com/hello-git.html}{instructions sections 8-14})
+  \item
+    or install the \href{https://desktop.github.com/}{Desktop App}
+  \item
+    or be familiar with git commands for the command line (\href{https://try.github.io/levels/1/challenges/1}{tutorial})
+  \end{itemize}
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Examples:}
+
+We have been using bookdown for the Ocean Health Index: \href{http://ohi-science.org/data-science-training}{\textbf{ohi-science.org/data-science-training}} and Openscapes: \href{https://openscapes.org/series}{\textbf{openscapes.org/series}}.\\
+And R Markdown is much more than books and websites -- here's a \href{http://rmarkdown.rstudio.com/lesson-1.html}{\textbf{one-minute video about R Markdown}} to get you excited.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{learn-all-about-bookdown}{%
+\section{Learn all about Bookdown}\label{learn-all-about-bookdown}}
+
+The best way to learn more about bookdown is from Yihui Xie himself. You can read his book \href{https://bookdown.org/yihui/bookdown/}{bookdown: Authoring Books and Technical Documents with R Markdown} or watch his webinar \href{https://www.rstudio.com/resources/webinars/introducing-bookdown/}{introducing bookdown}.
+
+\hypertarget{setup}{%
+\chapter{Setting up Bookdown}\label{setup}}
+
+The \texttt{bookdown} package and \href{https://bookdown.org/yihui/bookdown/get-started.html}{book} is definitely the best way to get started. However, in practice I always find myself copying an existing, working book and modifying it instead of starting from scratch. So this tutorial is going to have you do that as well, using this book as the one you copy from.
+
+{[}more setup here{]}
+
+You will have to name your book's repository. To differentiate your book's repo name from this ``bookdown-tutorial'' repo, here we'll call your book ``awesome-book'' \emph{but you should consistently name it what you want to name it}.
+
+\hypertarget{get-bookdown-tutorial-going-on-your-local-computer}{%
+\section{Get ``bookdown-tutorial'' going on your local computer}\label{get-bookdown-tutorial-going-on-your-local-computer}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Go to \url{https://github.com/jules32/bookdown-tutorial}
+\item
+  Click the green ``clone or download'' button and DOWNLOAD ZIP.
+\item
+  Locally on your computer, unzip the folder, save it in a reasonable place
+\item
+  Rename 2 things from ``bookdown-tutorial'' to ``awesome-book''. You can do this in the finder/windows explorer:
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  the folder itself (that you just unzipped)
+\item
+  the .Rproj file
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Double-click the .Rproj file to launch RStudio
+\item
+  Install packages and restart
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{install.packages("bookdown")}\strut \\
+\item
+  \texttt{install.packages("usethis")}\strut \\
+\item
+  Use the menu item Session \textgreater{} Restart R\\
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Click on the Build tab in the top right pane
+\item
+  Click on Build Book!
+\end{enumerate}
+
+Nice job! Now let's make it yours, and connect it to GitHub.
+
+\hypertarget{create-your-awesome-book-github-repo}{%
+\section{Create your ``awesome-book'' GitHub repo}\label{create-your-awesome-book-github-repo}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Go to your GitHub account: github.com/username
+\item
+  Click on Repositories, and the green button ``New'' to create a new repo
+\item
+  Name this new repo ``awesome-book''
+\item
+  DO NOT initialize this repo with a README
+\item
+  Click the green ``create repository'' button --- this will take you to your new repo
+\item
+  Click the tiny ``clone or download'' button near the top and COPY URL
+\end{enumerate}
+
+\hypertarget{turn-bookdown-tutorial-into-awesome-book}{%
+\section{Turn ``bookdown-tutorial'' into ``awesome-book''}\label{turn-bookdown-tutorial-into-awesome-book}}
+
+\emph{The following is from Jenny Bryan's \href{https://happygitwithr.com/existing-github-last.html}{Happy Git With R}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Go back to RStudio, to your ``awesome-book'' project
+\item
+  In the Console, type \texttt{usethis::use\_git()} and say Yes to the two prompts. This will restart R and give you a new Git tab in the upper right pane.
+\item
+  Now, click on the Terminal tab next to the Console tab.
+\item
+  Type \texttt{git\ remote\ add\ origin\ \textless{}paste\ your\ copied\ awesome-book\ github\ url\ here\textgreater{}}
+\item
+  Type \texttt{git\ push\ -\/-set-upstream\ origin\ master}
+\end{enumerate}
+
+\hypertarget{publish-awesome-book}{%
+\section{Publish ``awesome-book''}\label{publish-awesome-book}}
+
+Last steps!
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Go back to github.com/username/``awesome-book'' and refresh --- our files should be there! But we want it to be a book published as \url{https://username.github.io/awesome-book}.
+\item
+  Click Settings
+\item
+  Scroll down to GitHub Settings
+\item
+  Change the Source pulldown from ``None'' to ``master branch /docs folder''
+\item
+  It should say ``Your site is ready to be published at \url{https://username.github.io/awesome-book/}'' --- click the link to see!
+\end{enumerate}
+
+Now, you're set --- you just need to write your book.
+
+\hypertarget{moving-forward}{%
+\section{Moving forward}\label{moving-forward}}
+
+As you write your .Rmd files, build the book and commit all files, including the docs/ folder, and your published book will be updated!
+
+\hypertarget{write}{%
+\chapter{Writing in Bookdown}\label{write}}
+
+Coming soon:
+
+\begin{itemize}
+\tightlist
+\item
+  Adding chapters
+\item
+  Citations
+\end{itemize}
+
+  \bibliography{book.bib,packages.bib}
+
+\backmatter
+\printindex
+
+\end{document}
